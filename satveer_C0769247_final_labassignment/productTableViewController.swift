@@ -10,7 +10,11 @@ import UIKit
 import  CoreData
 class productTableViewController: UITableViewController {
     var products:[Products]?
-
+    var filteredProducts: [Product]?
+     var productview: detailViewController?
+       var currentIndex = -1
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -212,14 +216,30 @@ class productTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if let detailView = segue.destination as? detailViewController{
+                    detailView.listview = self
+                    //detailView.tasks = tasks
+                    
+                    if let tableViewCell = sender as? UITableViewCell{
+                        if let index = tableView.indexPath(for: tableViewCell)?.row{
+                          detailView.text1 = products![index].name
+                          detailView.text2 = products![index].id
+                          detailView.text3 = products![index].detail
+                          detailView.text4 = String(products![index].price)
+                            
+                            currentIndex = index
+                        }
+                    }
+                    
+               }
     }
-    */
+    
 
 }
